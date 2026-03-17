@@ -3,7 +3,8 @@
 ## About Me 
 Hi, my name is Shanaya. I am learning Git and GitHub as part of my CFGDegree course. 
 
-## About This Repository This repository is used to practise GitHub workflows such as branching, commits, pull requests, and merging. 
+## About This Repository 
+This repository is used to practise GitHub workflows such as branching, commits, pull requests, and merging. 
 
 ## Files in This Repository 
 - README.md — contains information about me and this assignment 
@@ -24,6 +25,8 @@ In this assignment, I:
 4. Made changes on that branch 
 5. Opened a pull request 
 6. Merged changes into the main branch 
-## Reflection This update demonstrates my understanding of branching, commits, and pull requests. Through hands-on practice and problem-solving, I successfully implemented the full GitHub workflow for this assignment. 
+
+## Reflection 
+This update demonstrates my understanding of branching, commits, and pull requests. Through hands-on practice and problem-solving, I successfully implemented the full GitHub workflow for this assignment. 
 
 ## Useful Link [GitHub](https://github.com) --- *Created for CFG assignment.*
