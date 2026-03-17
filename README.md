@@ -8,9 +8,13 @@ Hi, my name is Shanaya. I am learning Git and GitHub as part of my CFGDegree cou
 ## Files in This Repository 
 - README.md — contains information about me and this assignment 
 - .gitignore — tells Git which files or folders to ignore when tracking changes 
-- requirements.txt — lists project dependencies ## What is .gitignore? A `.gitignore` file tells Git which files or folders should not be tracked. 
+- requirements.txt — lists project dependencies 
 
-## What is requirements.txt? A `requirements.txt` file is used to list dependencies needed for a project. 
+## What is .gitignore? 
+A `.gitignore` file tells Git which files or folders should not be tracked. 
+
+## What is requirements.txt? 
+A `requirements.txt` file is used to list dependencies needed for a project. 
 
 ## Git Workflow Demonstration 
 In this assignment, I: 
