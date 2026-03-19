@@ -1,7 +1,7 @@
 # CFG Assignments 
 
 ## About Me 
-Hi, my name is Shanaya. I am learning Git and GitHub as part of my CFGDegree course. 
+Hi, my name is Shanaya. I am learning Git and GitHub as part of my CFGDegree course. I am intrested in tech & improving my coding skills. I feel very grateful to be given this opportunity. Thank you CFG
 
 ## About This Repository 
 This repository is used to practise GitHub workflows such as branching, commits, pull requests, and merging. 
