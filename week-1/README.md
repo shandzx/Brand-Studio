@@ -41,4 +41,4 @@ In this assignment, I:
 This update demonstrates my understanding of branching, commits, and pull requests. Through hands-on practice and problem-solving, I successfully implemented the full GitHub workflow for this assignment. 
 
 ## 📸 Project Preview
-https://github.com/shandzx/CFG-Assignments/blob/main/screenshot.png
+    https://github.com/shandzx/CFG-Assignments/blob/main/screenshot.png
