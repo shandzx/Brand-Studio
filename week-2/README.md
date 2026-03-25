@@ -1,22 +1,18 @@
-DAILY SELF-IMPROVEMENT APP - PLAN
+# Week 2 – Self Improvement App
 
-Goal:
-Create a console app that generates a daily self-improvement plan using APIs.
+## 📌 Description
+A Python app that generates a daily self-improvement plan using:
+- Motivational quotes API
+- Book recommendation API
 
-Features:
-- Get a motivational quote from an API
-- Get a book recommendation from an API
-- Display results to the user
-- Allow user to save results to a file
+## 🚀 Features
+- Fetches random motivational quote
+- Suggests a book to read
+- Saves plan to a file
+- Interactive menu system
 
-Program Structure:
-- main() -> starts the program
-- show_menu() -> displays options
-- get_quote() -> fetches quote from API
-- get_book() -> fetches book data from API
-- generate_plan() -> combines all data
-- save_to_file() -> saves results
+## ▶️ How to run
 
-APIs Used:
-- Quotable API (quotes)
-- Open Library API (books)
+```bash
+pip install -r requirements.txt
+python3 self_improvement_app.py
