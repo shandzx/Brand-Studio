@@ -16,8 +16,8 @@ def get_quote():
         return "Could not fetch quote."
 
 
-def get_book():
-    url = "https://openlibrary.org/search.json?q=self+improvement"
+def get_book(topic):
+    url = f"https://openlibrary.org/search.json?q={topic}"
     response = requests.get(url, verify=False)
 
     if response.status_code == 200:
@@ -36,7 +36,12 @@ def generate_plan():
     print("\n--- Daily Self Improvement ---")
 
     quote = get_quote()
-    book = get_book()
+
+    # 🔑 simple keyword extraction
+    words = quote.split()
+    topic = words[0]  # take first word as topic
+
+    book = get_book(topic)
 
     plan = f"Quote:\n{quote}\n\nBook to explore:\n{book}"
 
