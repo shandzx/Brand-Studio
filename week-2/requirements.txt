@@ -1,2 +1,2 @@
-# This file is used to list Python dependencies required for the project.
-# It allows others to install all necessary packages using pip.
+# Python dependencies for this project
+requests
