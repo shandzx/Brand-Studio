@@ -16,3 +16,7 @@ A Python app that generates a daily self-improvement plan using:
 ```bash
 pip install -r requirements.txt
 python3 self_improvement_app.py
+
+## Screenshot
+
+![App Screenshot](screenshot.png)
