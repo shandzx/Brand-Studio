@@ -1,75 +1,152 @@
+"""
+Self Improvement App
+
+This app:
+- gets a motivational quote from the Quotable API
+- analyses the quote to find a theme
+- gets a related book recommendation using Open Library
+- prints both results
+- saves the results to a file
+
+Setup:
+python3 -m pip install requests
+
+Note:
+Quotable currently has an SSL certificate issue, so verify=False is used.
+"""
+
 import requests
 import urllib3
+import random
 
-# Disable SSL warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def get_quote():
+    """Fetch a motivational quote from Quotable."""
     url = "https://api.quotable.io/random"
-    response = requests.get(url, verify=False)
 
-    if response.status_code == 200:
-        data = response.json()
-        return f"{data['content']} - {data['author']}"
+    try:
+        response = requests.get(url, timeout=10, verify=False)
+
+        if response.status_code == 200:
+            data = response.json()
+            return data["content"], data["author"]
+        else:
+            return "Could not fetch quote.", "Unknown"
+    except requests.exceptions.RequestException:
+        return "Error fetching quote.", "Unknown"
+
+
+def detect_theme(quote_text):
+    """Work out a theme based on words in the quote."""
+    quote_lower = quote_text.lower()
+
+    if any(word in quote_lower for word in ["mind", "think", "thought", "wisdom", "learn", "knowledge"]):
+        return "mindset"
+    elif any(word in quote_lower for word in ["discipline", "habit", "consistency", "effort", "work"]):
+        return "discipline"
+    elif any(word in quote_lower for word in ["life", "purpose", "meaning", "future", "dream"]):
+        return "purpose"
+    elif any(word in quote_lower for word in ["fear", "courage", "confidence", "believe", "brave"]):
+        return "confidence"
     else:
-        return "Could not fetch quote."
+        return "growth"
 
 
-def get_book(topic):
-    url = f"https://openlibrary.org/search.json?q={topic}"
-    response = requests.get(url, verify=False)
+def get_book(theme):
+    """
+    Get a real book title related to the quote theme.
+    Uses Open Library to search for actual books.
+    """
+    theme_books = {
+        "mindset": [
+            "Mindset",
+            "The Power of Your Subconscious Mind",
+            "Think and Grow Rich",
+            "The Magic of Thinking Big"
+        ],
+        "discipline": [
+            "Atomic Habits",
+            "The 7 Habits of Highly Effective People",
+            "Deep Work",
+            "Make Your Bed"
+        ],
+        "purpose": [
+            "Man's Search for Meaning",
+            "The Alchemist",
+            "Ikigai",
+            "The Purpose Driven Life"
+        ],
+        "confidence": [
+            "Feel the Fear and Do It Anyway",
+            "You Are a Badass",
+            "The Confidence Code",
+            "Daring Greatly"
+        ],
+        "growth": [
+            "The Power of Now",
+            "Awaken the Giant Within",
+            "The Four Agreements",
+            "The Road Less Travelled"
+        ]
+    }
 
-    if response.status_code == 200:
-        data = response.json()
-        if data["docs"]:
-            return data["docs"][0].get("title", "No title found")
-    return "Could not fetch book."
+    possible_books = theme_books[theme]
+    chosen_title = random.choice(possible_books)
+
+    url = f"https://openlibrary.org/search.json?title={chosen_title}"
+
+    try:
+        response = requests.get(url, timeout=10)
+
+        if response.status_code == 200:
+            data = response.json()
+            docs = data.get("docs", [])
+
+            for book in docs:
+                title = book.get("title")
+                if title:
+                    return title
+
+            return chosen_title
+        else:
+            return chosen_title
+    except requests.exceptions.RequestException:
+        return chosen_title
 
 
-def save_to_file(text):
-    with open("plan.txt", "a") as file:
-        file.write(text + "\n\n")
-
-
-def generate_plan():
-    print("\n--- Daily Self Improvement ---")
-
-    quote = get_quote()
-
-    # 🔑 simple keyword extraction
-    words = quote.split()
-    topic = words[0]  # take first word as topic
-
-    book = get_book(topic)
-
-    plan = f"Quote:\n{quote}\n\nBook to explore:\n{book}"
-
-    print(plan)
-
-    save = input("\nDo you want to save this plan? (yes/no): ").strip().lower()
-
-    if save == "yes":
-        save_to_file(plan)
-        print("Plan saved!")
+def save_results(quote, author, theme, book):
+    """Save the final results to a text file."""
+    with open("results.txt", "w", encoding="utf-8") as file:
+        file.write("Self Improvement Results\n")
+        file.write("------------------------\n")
+        file.write(f"Quote: {quote} - {author}\n")
+        file.write(f"Theme: {theme}\n")
+        file.write(f"Book: {book}\n")
 
 
 def main():
-    while True:
-        print("\n1. Generate Plan")
-        print("2. Exit")
+    """Run the application."""
+    print("Welcome to the Self Improvement App!")
 
-        choice = input("Choose an option: ").strip()
+    quote, author = get_quote()
+    theme = detect_theme(quote)
+    book = get_book(theme)
 
-        if choice == "1" or choice == "1.":
-            generate_plan()
+    print("\nHere is your motivational quote:")
+    print(f"{quote} - {author}")
 
-        elif choice == "2" or choice == "2.":
-            print("Goodbye!")
-            break
+    print("\nDetected theme:")
+    print(theme.title())
 
-        else:
-            print("Invalid choice, try again.")
+    print("\nHere is a book recommendation:")
+    print(book)
+
+    save_results(quote, author, theme, book)
+
+    print("\nYour results have been saved to results.txt")
 
 
-main()
+if __name__ == "__main__":
+    main()
