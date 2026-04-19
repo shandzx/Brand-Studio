@@ -1,0 +1,5 @@
+def sum_to_single_digit(n):
+    while n > 9:
+        n = sum(int(d) for d in str(n))
+    return n
+print(sum_to_single_digit(9875))
